@@ -10,7 +10,7 @@
 #define AREF INTERNAL
 
 // threshold at/above which we trigger a pulse
-#define ATHRESH 6
+#define ATHRESH 100
 
 // pulse output pin
 #define POUT 5
@@ -40,7 +40,6 @@ void setup() {
   ADMUX = 192;
   // set ADMUX as static value for pin 0
   ADMUX = (AREF << 6) | (0 & 0x07);
-  Serial.begin(115200);
 }
 
 void loop() {
