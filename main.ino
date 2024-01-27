@@ -40,10 +40,19 @@ void setup() {
   ADMUX = 192;
   // set ADMUX as static value for pin 0
   ADMUX = (AREF << 6) | (0 & 0x07);
+  Serial.begin(115200);
 }
 
+double average = 0;
+
 void loop() {
-  if (sample() > ATHRESH) {
+  int value = sample();
+
+  average = (average * 99.95 + (double) value * 0.05) / (double) 100.0;
+
+  Serial.println(value);
+  
+  if (value > average * 256) {
     // spec from volca sample 2 manual: 5V for 15ms
     PORTD |= B00100000;
     delay(15);
